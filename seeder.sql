@@ -83,3 +83,4 @@ select * from comments;
 select * from comments where is_approved = 1;
 select * from category;
 select * from post_categories;
+
