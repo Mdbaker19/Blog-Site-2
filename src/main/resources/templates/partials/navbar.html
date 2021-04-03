@@ -10,9 +10,8 @@
     </ul>
 
     <div class="nav-wrapper">
-        <a href="#" class="brand-logo">Logo</a>
+        <a href="/" class="brand-logo">Logo</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li><a href="/">Home</a> </li>
             <li><a href="/profile">Profile</a> </li>
             <li sec:authorize="isAnonymous()">
                 <a href="/login">Login</a>
@@ -21,6 +20,9 @@
                 <form class="logoutForm" th:action="@{/logout}" method="POST">
                     <button class="logoutFormButton">Logout</button>
                 </form>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <a th:if="${session.user.isAdmin &gt; 0}" href="/create">Create Post</a>
             </li>
             <li><a href="/posts">All Posts</a> </li>
         </ul>

@@ -17,6 +17,15 @@
                 <input placeholder="need current url"/>
                 <button class="logoutFormButton">Like Post</button>
             </form>
+            <div th:each="comment : ${post.comments}">
+                <p th:text="${comment.content}" th:if="${comment.isApproved &gt; 0}"></p>
+                <div th:if="${comment.isApproved &lt; 1 and session.user.isAdmin &gt; 0}">
+                    <p th:text="${comment.content}" class="pendingComment"></p>
+                    <form th:method="POST" th:action="@{/approve/{id}(id=${post.id})}">
+                        <button class="btn wave-effect">Approve</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
 
