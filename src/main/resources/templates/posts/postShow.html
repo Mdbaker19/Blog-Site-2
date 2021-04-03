@@ -7,6 +7,19 @@
     <nav th:include="partials/navbar :: navbar"></nav>
     <h1>View a post</h1>
 
+    <main>
+        <div class="more">
+            <h1 th:text="${post.title}"></h1>
+            <h5 th:text="${post.createdAt}"></h5>
+            <p th:text="${post.content}"></p>
+            <p>Viewing post id: <span th:text="${post.id}"></span></p>
+            <form class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
+                <input placeholder="need current url"/>
+                <button class="logoutFormButton">Like Post</button>
+            </form>
+        </div>
+    </main>
+
     <div th:replace="partials/materializeScripts :: scripts"></div>
 
 </body>

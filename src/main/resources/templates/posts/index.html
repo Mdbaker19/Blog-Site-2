@@ -7,6 +7,14 @@
     <nav th:include="partials/navbar :: navbar"></nav>
     <h1>All posts</h1>
 
+    <main>
+        <div class="postsContainer" th:each="post : ${posts}">
+            <h2 th:text="${post.title}"></h2>
+            <p th:text="${post.content}"></p>
+            <a th:href="@{/posts/{id}(id=${post.id})}">View More</a>
+        </div>
+    </main>
+
     <div th:replace="partials/materializeScripts :: scripts"></div>
 
 </body>

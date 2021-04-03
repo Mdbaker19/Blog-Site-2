@@ -6,6 +6,45 @@
     <nav th:include="partials/navbar :: navbar"></nav>
     <h1>Log in page</h1>
 
+
+    <div th:if="${!param.isEmpty()}">
+        <div>
+            <div class="errorMsg" th:if="${param.logout}">
+                <i class="material-icons">error</i>You have been logged out.
+            </div>
+            <div class="errorMsg" th:if="${param.error}">
+                <i class="material-icons">error</i>Username or password does not exist, you may need to activate your account.
+            </div>
+            <div class="errorMsg" th:if="${param.activated}">
+                <i class="material-icons">error</i>Your account has been activated
+            </div>
+            <div class="errorMsg" th:if="${param.activationIssue}">
+                <i class="material-icons">error</i>There was an issue activating your account
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <form class="col s12" th:action="@{/login}" th:method="POST">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input id="first_name" name="username" type="text" class="validate">
+                    <label for="first_name">Username</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="password" type="password" name="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <button class="btn wave-effect waves-light">Submit</button>
+        </form>
+    </div>
+
+    <button><a href="/register">Register</a></button>
+
+
     <div th:replace="partials/materializeScripts :: scripts"></div>
 
 </body>

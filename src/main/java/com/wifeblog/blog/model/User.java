@@ -24,6 +24,10 @@ public class User {
     @Column
     private String favoriteList;
 
+    // A list of posts that the user has answered and can then view later
+    @Column
+    private String answeredList;
+
     @Column(columnDefinition = "text")
     private String profileImage;
 
@@ -39,6 +43,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Answer> answers;
+
     public User(){}
 
     public User(User copy){
@@ -52,9 +59,11 @@ public class User {
         this.isAuthenticated = copy.isAuthenticated;
         this.authCode = copy.authCode;
         this.comments = copy.comments;
+        this.answers = copy.answers;
+        this.answeredList = copy.answeredList;
     }
 
-    public User(long id, String username, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
+    public User(long id, String answeredList, List<Answer> answers, String username, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -65,9 +74,11 @@ public class User {
         this.isAuthenticated = isAuthenticated;
         this.authCode = authCode;
         this.comments = comments;
+        this.answers = answers;
+        this.answeredList = answeredList;
     }
 
-    public User(String username, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
+    public User(String username, String answeredList, List<Answer> answers, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -77,6 +88,8 @@ public class User {
         this.isAuthenticated = isAuthenticated;
         this.authCode = authCode;
         this.comments = comments;
+        this.answers = answers;
+        this.answeredList = answeredList;
     }
 
     public long getId() {
@@ -157,5 +170,21 @@ public class User {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+
+    public String getAnsweredList() {
+        return answeredList;
+    }
+
+    public void setAnsweredList(String answeredList) {
+        this.answeredList = answeredList;
+    }
+
+    public List<Answer> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<Answer> answers) {
+        this.answers = answers;
     }
 }
