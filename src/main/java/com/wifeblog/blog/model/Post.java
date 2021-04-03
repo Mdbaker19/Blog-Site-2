@@ -19,6 +19,9 @@ public class Post {
     @Column(nullable = false, columnDefinition = "text")
     private String content;
 
+    @Column(columnDefinition = "text")
+    private String image;
+
     @Column(nullable = false)
     private int likeCount;
 
@@ -45,8 +48,9 @@ public class Post {
 
     public Post(){}
 
-    public Post(long id, List<Question> questions, String title, String content, int likeCount, Timestamp createdAt, List<Comment> comments, List<Category> categories) {
+    public Post(long id, String image, List<Question> questions, String title, String content, int likeCount, Timestamp createdAt, List<Comment> comments, List<Category> categories) {
         this.id = id;
+        this.image = image;
         this.title = title;
         this.content = content;
         this.likeCount = likeCount;
@@ -54,6 +58,14 @@ public class Post {
         this.comments = comments;
         this.questions = questions;
         this.categories = categories;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getId() {
