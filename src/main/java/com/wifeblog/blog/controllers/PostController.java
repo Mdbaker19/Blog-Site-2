@@ -1,6 +1,7 @@
 package com.wifeblog.blog.controllers;
 
 import com.wifeblog.blog.model.Category;
+import com.wifeblog.blog.model.Comment;
 import com.wifeblog.blog.model.Post;
 import com.wifeblog.blog.model.User;
 import com.wifeblog.blog.repository.*;
@@ -42,6 +43,7 @@ public class PostController {
     @GetMapping("/posts/{id}")
     public String thisPost(@PathVariable(name = "id") long id, Model model){
         model.addAttribute("post", postDao.getOne(id));
+        model.addAttribute("comment", new Comment());
         return "posts/postShow";
     }
 
@@ -56,11 +58,25 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public String createPost(@RequestParam(name = "categories", required = false) String categories, @ModelAttribute Post post){
+    public String createPost(@RequestParam(name = "categories", required = false) String categories, @RequestParam(name = "newCategories", required = false) String newCategories, @ModelAttribute Post post){
         post.setCreatedAt(new Timestamp(new Date().getTime()));
         post.setLikeCount(0);
 
         List<Category> categoryList = new ArrayList<>();
+
+        System.out.println(newCategories);
+        if(newCategories != null) {
+            String[] otherCategories = newCategories.split(", ");
+            for(String category : otherCategories) {
+                System.out.println(category);
+                createCategory(category);
+            }
+            for(String category : otherCategories) {
+                categoryList.add(categoryDao.findByName(category));
+            }
+        }
+
+
         String[] catList = categories.split(",");
 
         for(String c : catList) {
@@ -83,6 +99,13 @@ public class PostController {
         user.setFavoriteList(currList);
         userDao.save(user);
         return "redirect:/profile"; //will be curr url later
+    }
+
+
+    private void createCategory(String categoryName) {
+        Category category = new Category();
+        category.setName(categoryName);
+        categoryDao.save(category);
     }
 
 }

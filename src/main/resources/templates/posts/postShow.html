@@ -17,6 +17,11 @@
                 <input placeholder="need current url"/>
                 <button class="logoutFormButton">Like Post</button>
             </form>
+            <h2>Categories Below</h2>
+            <div th:each="category : ${post.categories}">
+                <p th:text="${category.name}"></p>
+            </div>
+            <h2>Comments Below</h2>
             <div th:each="comment : ${post.comments}">
                 <p th:text="${comment.content}" th:if="${comment.isApproved &gt; 0}"></p>
                 <div th:if="${comment.isApproved &lt; 1 and session.user.isAdmin &gt; 0}">
@@ -26,6 +31,17 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="commentForm">
+            <form class="col s12" th:action="@{/comment/{id}(id=${post.id})}" th:method="POST" th:object="${comment}">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="comment" type="text" class="validate" th:field="*{content}">
+                        <label for="comment">Comment</label>
+                    </div>
+                    <button class="btn wave-effect">Add Comment</button>
+                </div>
+            </form>
         </div>
     </main>
 
