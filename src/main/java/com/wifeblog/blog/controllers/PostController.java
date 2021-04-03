@@ -50,7 +50,8 @@ public class PostController {
         User user = userService.getLoggedInUser();
         if(user.getIsAdmin() < 1) return "redirect:/";
         model.addAttribute("post", new Post());
-        model.addAttribute("categoryList", categoryDao.findAll());
+        List<Category> categoryList = categoryDao.findAll();
+        model.addAttribute("categoryList", categoryList);
         return "posts/create";
     }
 

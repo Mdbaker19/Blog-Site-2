@@ -3,6 +3,7 @@
 <head th:replace="partials/styleHead :: styleHead('Add a Post')"></head>
 
 <body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
 
     <main>
 
@@ -16,7 +17,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <textarea id="content" class="validate" th:field="*{content}"></textarea>
+                        <textarea id="content" class="materialize-textarea" th:field="*{content}"></textarea>
                         <label for="content">Content</label>
                     </div>
                 </div>
@@ -27,14 +28,14 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="input-field" style="display: flex">
-                        <i class="material-icons">list</i>
+                    <div class="input-field">
                         <select multiple id="categories" name="categories" th:field="*{categories}">
                             <option th:each="i : ${#numbers.sequence(0, categoryList.size() - 1)}" th:value="${i}" th:text="${categoryList.get(i).name}"></option>
                         </select>
                         <label>Categories</label>
                     </div>
                 </div>
+                <button class="btn wave-effect">Submit</button>
             </form>
         </div>
 
