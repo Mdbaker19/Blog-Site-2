@@ -14,10 +14,15 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="/">Home</a> </li>
             <li><a href="/profile">Profile</a> </li>
-            <li><a href="/login">Login</a> </li>
-            <li><a href="/register">Register</a> </li>
+            <li sec:authorize="isAnonymous()">
+                <a href="/login">Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()">
+                <form class="logoutForm" th:action="@{/logout}" method="POST">
+                    <button class="logoutFormButton">Logout</button>
+                </form>
+            </li>
             <li><a href="/posts">All Posts</a> </li>
-            <li><a href="/posts/1">Show a post</a> </li>
         </ul>
     </div>
 </nav>
