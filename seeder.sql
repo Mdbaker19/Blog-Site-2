@@ -51,10 +51,10 @@ drop table if exists users;
 #     foreign key (category_id) references categories(id)
 # );
 
-insert into users(id, username, password, email, is_admin, profile_image) values (1, 'mandy', 'password', 'email@email.com', 1, 'image');
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated) values (1, 'mandy', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 1, 'image', 1);
 
-insert into users(id, username, password, email, is_admin, profile_image) values (2, 'user', 'password1', 'email@email.com', 0, 'image');
-insert into users(id, username, password, email, is_admin, profile_image) values (3, 'other', 'password2', 'email@email.com', 0, 'image');
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (2, 'user', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '31');
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (3, 'other', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '12');
 
 insert into category(id, name) VALUES (1, 'cooking');
 insert into category(id, name) VALUES (2, 'animals');
@@ -74,7 +74,7 @@ insert into post_categories(post_id, category_id) VALUES (3, 3);
 insert into comments(post_id, created_at, content, user_id, is_approved) VALUES (1, '2020-02-18', 'i like this one waiting', 2, 0);
 insert into comments(post_id, created_at, content, user_id, is_approved) VALUES (2, '2020-02-11', 'i like this one approved', 3, 1);
 insert into comments(post_id, created_at, content, user_id, is_approved) VALUES (3, '2020-02-13', 'i do not really like this one approved', 2, 1);
-insert into comments(post_id, created_at, content, user_id, is_approved) VALUES (4, '2020-02-24', 'i do not really like like this one waiting', 3, 0);
+insert into comments(post_id, created_at, content, user_id, is_approved) VALUES (3, '2020-02-24', 'i do not really like like this one waiting', 3, 0);
 
 
 select * from posts;
