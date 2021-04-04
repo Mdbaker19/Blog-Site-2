@@ -9,9 +9,12 @@
     <p th:text="${session.user.email}"></p>
 
     <h1>Posts you like are below</h1>
-    <div class="postLikes" th:each="post : ${session.userLikes}">
+    <div class="postLikes" th:if="${session.userLikes.size() > 0}" th:each="post : ${session.userLikes}">
         <h2 th:text="${post.title}"></h2>
         <p th:text="${post.content}"></p>
+        <form th:method="POST" th:action="@{/dislike/{id}(id=${post.id})}">
+            <button class="btn wave-effect">Dislike</button>
+        </form>
         <a th:href="@{/posts/{id}(id=${post.id})}">View More</a>
     </div>
 
