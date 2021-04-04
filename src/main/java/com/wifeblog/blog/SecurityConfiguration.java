@@ -50,12 +50,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-                .antMatchers("/", "/register", "/posts")// pages you do not need to be logged in to view to the permitAll below ( can specify get and posts to the urls as well )
+                .antMatchers("/", "/register", "/posts", "/posts/*")// pages you do not need to be logged in to view to the permitAll below ( can specify get and posts to the urls as well )
                 .permitAll()
 
                 .and() // pages need to be logged in to visit below
                 .authorizeRequests()
-                .antMatchers("/posts/*", "/profile", "/create")//anything with post / something.. you need to be logged in to visit
+                .antMatchers ("/profile", "/create")//anything with post / something.. you need to be logged in to visit
                 .authenticated();
     }
 }

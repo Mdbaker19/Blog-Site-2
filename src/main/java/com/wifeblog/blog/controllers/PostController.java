@@ -1,9 +1,6 @@
 package com.wifeblog.blog.controllers;
 
-import com.wifeblog.blog.model.Category;
-import com.wifeblog.blog.model.Comment;
-import com.wifeblog.blog.model.Post;
-import com.wifeblog.blog.model.User;
+import com.wifeblog.blog.model.*;
 import com.wifeblog.blog.repository.*;
 import com.wifeblog.blog.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -40,25 +37,49 @@ public class PostController {
         return "posts/index";
     }
 
+    @GetMapping("/finish/{id}")
+    public String finishPost(@PathVariable(name = "id") long id, Model model){
+        // set the post id to then be view after login ( use spring security for this ? )
+        // login then send them back to finish the post
+        return "redirect:/login";
+    }
+
+
     @GetMapping("/posts/{id}")
     public String thisPost(@PathVariable(name = "id") long id, Model model, HttpSession session){
-        User user = userService.getLoggedInUser();
-        session.setAttribute("user", user);
+        User user = null;
         model.addAttribute("post", postDao.getOne(id));
-        model.addAttribute("comment", new Comment());
-        boolean likedYet = false;
-        String likeString = user.getFavoriteList();
-        if(likeString.length() > 0) {
-            List<Long> likes = new ArrayList<>();
-            String[] likeList = likeString.split("%");
-            for (String s : likeList) {
-                likes.add(Long.parseLong(s));
-            }
-            if (likes.contains(id)) likedYet = true;
+        try {
+            user = userService.getLoggedInUser();
+        } catch (Exception ignored){}
+        if(user == null) {
+            return "posts/postPartial";
         }
-        model.addAttribute("likedAlready", likedYet);
-        return "posts/postShow";
+        session.setAttribute("user", user);
+
+        String answers = user.getAnsweredList();
+        boolean canView = alreadySeenQuestion(user, id);
+        if (canView) {
+            boolean likedYet = likesPostAlready(user, id);
+            model.addAttribute("likedAlready", likedYet);
+
+            model.addAttribute("comment", new Comment());
+            return "posts/postShow";
+        } else {
+            List<Question> allQs = questionDao.findAll();
+            int ran = (int) (Math.random() * allQs.size());
+            answers += id + "%";
+            user.setAnsweredList(answers);
+
+            userDao.save(user);
+            model.addAttribute("postId", id);
+            model.addAttribute("question", allQs.get(ran));
+            return "question/view";
+        }
+
     }
+
+
 
     @GetMapping("/create")
     public String createForm(Model model){
@@ -72,6 +93,9 @@ public class PostController {
 
     @PostMapping("/create")
     public String createPost(@RequestParam(name = "categories", required = false) String categories, @RequestParam(name = "newCategories", required = false) String newCategories, @ModelAttribute Post post){
+
+
+
         post.setCreatedAt(new Timestamp(new Date().getTime()));
         post.setLikeCount(0);
 
@@ -150,6 +174,36 @@ public class PostController {
         Category category = new Category();
         category.setName(categoryName);
         categoryDao.save(category);
+    }
+
+    private boolean likesPostAlready(User user, long id) {
+        boolean likedYet = false;
+        String likeString = user.getFavoriteList();
+        if (likeString.length() > 0) {
+            List<Long> likes = new ArrayList<>();
+            String[] likeList = likeString.split("%");
+            for (String s : likeList) {
+                likes.add(Long.parseLong(s));
+            }
+            if (likes.contains(id)) likedYet = true;
+        }
+        return likedYet;
+    }
+
+    private boolean alreadySeenQuestion(User user, long id){
+        boolean canView = false;
+        String answers = user.getAnsweredList();
+        if (answers.length() > 0) {
+            String[] ansArr = answers.split("%");
+            List<Long> ansList = new ArrayList<>();
+            for (String a : ansArr) {
+                ansList.add(Long.parseLong(a));
+            }
+            if (ansList.contains(id)) {
+                canView = true;
+            }
+        }
+        return canView;
     }
 
 }

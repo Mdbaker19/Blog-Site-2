@@ -43,8 +43,6 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Comment> comments;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Answer> answers;
 
     public User(){}
 
@@ -59,11 +57,10 @@ public class User {
         this.isAuthenticated = copy.isAuthenticated;
         this.authCode = copy.authCode;
         this.comments = copy.comments;
-        this.answers = copy.answers;
         this.answeredList = copy.answeredList;
     }
 
-    public User(long id, String answeredList, List<Answer> answers, String username, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
+    public User(long id, String answeredList, String username, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -74,11 +71,10 @@ public class User {
         this.isAuthenticated = isAuthenticated;
         this.authCode = authCode;
         this.comments = comments;
-        this.answers = answers;
         this.answeredList = answeredList;
     }
 
-    public User(String username, String answeredList, List<Answer> answers, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
+    public User(String username, String answeredList, String email, String password, String favoriteList, String profileImage, int isAdmin, int isAuthenticated, String authCode, List<Comment> comments) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -88,7 +84,6 @@ public class User {
         this.isAuthenticated = isAuthenticated;
         this.authCode = authCode;
         this.comments = comments;
-        this.answers = answers;
         this.answeredList = answeredList;
     }
 
@@ -180,11 +175,4 @@ public class User {
         this.answeredList = answeredList;
     }
 
-    public List<Answer> getAnswers() {
-        return answers;
-    }
-
-    public void setAnswers(List<Answer> answers) {
-        this.answers = answers;
-    }
 }

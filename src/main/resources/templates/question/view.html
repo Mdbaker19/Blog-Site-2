@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/styleHead :: styleHead('Prompt Page View')"></head>
+
+<body>
+
+    <h1>You need to see this for 10 seconds</h1>
+    <h2 th:text="${question.title}"></h2>
+    <input type="hidden" th:value="${postId}" id="postID">
+
+    <div th:replace="partials/materializeScripts :: scripts"></div>
+
+<script>
+    $(document).ready(function() {
+
+        const thisPostId = document.getElementById("postID");
+        let idValue = thisPostId.value;
+        setTimeout(changeWindow, 10000);
+
+        function changeWindow(){
+            window.location = `http://localhost:8080/posts/${idValue}`;
+        }
+
+    });
+</script>
+
+</body>
+</html>
