@@ -33,13 +33,13 @@ public class UserController {
         User user = userService.getLoggedInUser();
         session.setAttribute("user", user);
         List<Post> likedList = new ArrayList<>();
-        if(user.getFavoriteList() != null) {
-            String[] likes = user.getFavoriteList().split("");
+        if(user.getFavoriteList().length() > 0) {
+            String[] likes = user.getFavoriteList().split("%");
             for (String l : likes) {
                 likedList.add(postDao.getOne(Long.parseLong(l)));
             }
-            session.setAttribute("userLikes", likedList);
         }
+        session.setAttribute("userLikes", likedList);
         return "users/profile";
     }
 

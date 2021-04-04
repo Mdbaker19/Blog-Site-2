@@ -3,3 +3,31 @@
     margin: 0;
     padding: 0;
 }
+html{
+    font-size: 70%;
+}
+body{
+    background-color: #9FD983;
+    color: #FEFED3;
+}
+button:hover{
+    cursor: pointer;
+}
+.pendingComment{
+    color: #024064;
+}
+
+/*Logout Button*/
+.logoutForm{
+    height: 50px;
+}
+.logoutFormButton{
+    border: none;
+    background: none;
+    color: #FDFFFC;
+    height: 100%;
+    width: 100%;
+}
+
+
+

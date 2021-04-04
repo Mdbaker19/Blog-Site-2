@@ -3,8 +3,8 @@
 <head th:replace="partials/styleHead :: styleHead('Error Page')"></head>
 <body>
 
-    <nav th:include="partials/navbar :: navbar"></nav>
-    <h1>Error !!!! </h1>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+    <h1>Sorry, <span th:text="${error}"></span> </h1>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
 

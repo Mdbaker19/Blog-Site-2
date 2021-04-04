@@ -19,6 +19,9 @@ public class Post {
     @Column(nullable = false, columnDefinition = "text")
     private String content;
 
+    @Column(columnDefinition = "text")
+    private String image;
+
     @Column(nullable = false)
     private int likeCount;
 
@@ -35,17 +38,34 @@ public class Post {
             inverseJoinColumns = {@JoinColumn(name = "category_id")})
     private List<Category> categories = new ArrayList<>();
 
+    @ManyToMany()
+    @JoinTable(
+            name = "post_questions",
+            joinColumns = {@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name = "question_id")})
+    private List<Question> questions = new ArrayList<>();
+
 
     public Post(){}
 
-    public Post(long id, String title, String content, int likeCount, Timestamp createdAt, List<Comment> comments, List<Category> categories) {
+    public Post(long id, String image, List<Question> questions, String title, String content, int likeCount, Timestamp createdAt, List<Comment> comments, List<Category> categories) {
         this.id = id;
+        this.image = image;
         this.title = title;
         this.content = content;
         this.likeCount = likeCount;
         this.createdAt = createdAt;
         this.comments = comments;
+        this.questions = questions;
         this.categories = categories;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public long getId() {
@@ -102,5 +122,13 @@ public class Post {
 
     public void setCategories(List<Category> categories) {
         this.categories = categories;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
     }
 }

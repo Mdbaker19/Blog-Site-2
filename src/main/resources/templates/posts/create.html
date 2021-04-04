@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/styleHead :: styleHead('Add a Post')"></head>
+
+<body>
+    <nav th:replace="partials/navbar :: navbar"></nav>
+
+    <main>
+
+        <div class="row">
+            <form class="col s12" th:action="@{/create}" th:method="POST" th:object="${post}">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="title" type="text" class="validate" th:field="*{title}">
+                        <label for="title">Title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <textarea id="content" class="materialize-textarea" th:field="*{content}"></textarea>
+                        <label for="content">Content</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="image" type="text" class="validate" th:field="*{image}">
+                        <label for="image">Image URL</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <select multiple id="categories" name="categories" th:field="*{categories}">
+                            <option th:each="i : ${#numbers.sequence(0, categoryList.size() - 1)}" th:value="${i}" th:text="${categoryList.get(i).name}"></option>
+                        </select>
+                        <label>Categories</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <textarea id="newCategories" name="newCategories" class="materialize-textarea"></textarea>
+                        <label for="newCategories">New Categories</label>
+                    </div>
+                    <p>Space and Comma separated please boo</p>
+                </div>
+                <button class="btn wave-effect">Submit</button>
+            </form>
+        </div>
+
+    </main>
+
+
+    <div th:replace="partials/materializeScripts :: scripts"></div>
+
+
+</body>
+</html>

@@ -4,15 +4,18 @@
 
 <body>
 
-    <nav th:include="partials/navbar :: navbar"></nav>
-    <h1>All posts</h1>
+    <nav th:replace="partials/navbar :: navbar"></nav>
 
     <main>
-        <div class="postsContainer" th:each="post : ${posts}">
-            <h2 th:text="${post.title}"></h2>
-            <p th:text="${post.content}"></p>
-            <a th:href="@{/posts/{id}(id=${post.id})}">View More</a>
-        </div>
+        <section class="row">
+            <div class="postsContainer col s12 m6" th:each="post : ${posts}">
+                <div class="flexSet">
+                    <h2 th:text="${post.title}"></h2>
+                    <p class="truncate" th:text="${post.content}"></p>
+                    <a th:href="@{/posts/{id}(id=${post.id})}">View More</a>
+                </div>
+            </div>
+        </section>
     </main>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
