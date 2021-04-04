@@ -5,45 +5,64 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>View a post</h1>
 
     <main>
-        <div class="more">
+        <div class="flexSet">
             <h1 th:text="${post.title}"></h1>
-            <h5 th:text="${post.createdAt}"></h5>
+            <h5 th:text="${session.timeFormat.timeFormat(post.createdAt)}"></h5>
             <p th:text="${post.content}"></p>
-            <p>Viewing post id: <span th:text="${post.id}"></span></p>
-            <form class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
+            <form th:if="${session.user.isAdmin &lt; 1}" class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
                 <input placeholder="need current url"/>
-                <button class="logoutFormButton">Like Post</button>
+                <button th:if="${!likedAlready}" class="logoutFormButton btn wave-effect">Like Post</button>
             </form>
-            <h2>Categories Below</h2>
-            <div th:each="category : ${post.categories}">
-                <p th:text="${category.name}"></p>
-            </div>
-            <h2>Comments Below</h2>
-            <div th:each="comment : ${post.comments}">
-                <p th:text="${comment.content}" th:if="${comment.isApproved &gt; 0}"></p>
-                <div th:if="${comment.isApproved &lt; 1 and session.user.isAdmin &gt; 0}">
-                    <p th:text="${comment.content}" class="pendingComment"></p>
-                    <form th:method="POST" th:action="@{/approve/{id}(id=${post.id})}">
-                        <button class="btn wave-effect">Approve</button>
-                    </form>
+            <div class="categories">
+                <div th:each="category : ${post.categories}">
+                    <p th:text="${category.name}"></p>
                 </div>
             </div>
         </div>
+
+
         <div class="commentForm">
-            <form class="col s12" th:action="@{/comment/{id}(id=${post.id})}" th:method="POST" th:object="${comment}">
-                <div class="row">
-                    <div class="input-field col s6">
+            <form th:action="@{/comment/{id}(id=${post.id})}" th:method="POST" th:object="${comment}">
+                <div class="row flexSet">
+                    <div class="input-field col s10 m8 flexSet mAuto">
                         <input id="comment" type="text" class="validate" th:field="*{content}">
                         <label for="comment">Comment</label>
                     </div>
-                    <button class="btn wave-effect">Add Comment</button>
+                    <button class="btn wave-effect col s4 mAuto">Post</button>
                 </div>
             </form>
         </div>
+
+
+        <div class="commentsArea">
+            <section class="activeComments">
+                <div th:if="${comment.isApproved &gt; 0}" th:each="comment : ${post.comments}">
+                    <p th:text="${comment.content}"></p>
+                    <form th:method="POST" th:action="@{/deleteComment/{id}(id=${comment.id})}">
+                        <button class="btn wave-effect">Delete</button>
+                    </form>
+                </div>
+            </section>
+            <section class="newComments">
+                <div th:if="${comment.isApproved &lt; 1 and session.user.isAdmin &gt; 0}" th:each="comment : ${post.comments}">
+                    <p th:text="${comment.content}" class="pendingComment"></p>
+                    <div class="approveAndDeleteContainer">
+                        <form th:method="POST" th:action="@{/approve/{id}(id=${comment.id})}">
+                            <button class="btn wave-effect">Approve</button>
+                        </form>
+                        <form th:method="POST" th:action="@{/deleteComment/{id}(id=${comment.id})}">
+                            <button class="btn wave-effect">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </div>
+
     </main>
+
+
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
 

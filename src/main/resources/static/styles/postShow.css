@@ -1,0 +1,18 @@
+/*Posts*/
+.postsContainer{
+
+}
+
+.approveAndDeleteContainer{
+    display: flex;
+}
+
+/*Comments*/
+.commentsArea{
+    max-width: 80%;
+    margin: auto
+}
+.commentForm{
+    background: #FEFED3;
+    border-radius: 5px;
+}

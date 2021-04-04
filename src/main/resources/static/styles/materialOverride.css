@@ -1,0 +1,31 @@
+nav{
+    background-color: #37782C !important;
+    color: #64BB6A !important;
+}
+input{
+    color: #024064 !important;
+    border-bottom: 1px solid #024064 !important;
+}
+label{
+    color: #024064 !important;
+}
+a{
+    color: #FDFFFC !important;
+    font-size: 1.35rem !important;
+}
+.btn{
+    font-size: 1.35rem !important;
+    background-color: #37782C !important;
+}
+.dropdown-content{
+    background-color: #37782C !important;
+}
+.mAuto{
+    margin: auto !important;
+}
+.flexSet{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

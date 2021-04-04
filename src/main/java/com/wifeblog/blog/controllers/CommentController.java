@@ -5,6 +5,7 @@ import com.wifeblog.blog.repository.CommentRepository;
 import com.wifeblog.blog.repository.PostRepository;
 import com.wifeblog.blog.repository.UserRepository;
 import com.wifeblog.blog.service.UserService;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +45,12 @@ public class CommentController {
         currComment.setIsApproved(1);
         commentDao.save(currComment);
         return "redirect:/"; // current url later
+    }
+
+    @PostMapping("/deleteComment/{id}")
+    public String deleteComment(@PathVariable(name = "id") long id) {
+        commentDao.delete(commentDao.getOne(id));
+        return "redirect:/";
     }
 
 }

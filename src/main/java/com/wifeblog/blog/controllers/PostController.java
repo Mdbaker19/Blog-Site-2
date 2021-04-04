@@ -41,9 +41,22 @@ public class PostController {
     }
 
     @GetMapping("/posts/{id}")
-    public String thisPost(@PathVariable(name = "id") long id, Model model){
+    public String thisPost(@PathVariable(name = "id") long id, Model model, HttpSession session){
+        User user = userService.getLoggedInUser();
+        session.setAttribute("user", user);
         model.addAttribute("post", postDao.getOne(id));
         model.addAttribute("comment", new Comment());
+        boolean likedYet = false;
+        String likeString = user.getFavoriteList();
+        if(likeString.length() > 0) {
+            List<Long> likes = new ArrayList<>();
+            String[] likeList = likeString.split("%");
+            for (String s : likeList) {
+                likes.add(Long.parseLong(s));
+            }
+            if (likes.contains(id)) likedYet = true;
+        }
+        model.addAttribute("likedAlready", likedYet);
         return "posts/postShow";
     }
 
@@ -64,18 +77,15 @@ public class PostController {
 
         List<Category> categoryList = new ArrayList<>();
 
-        System.out.println(newCategories);
         if(newCategories != null) {
             String[] otherCategories = newCategories.split(", ");
             for(String category : otherCategories) {
-                System.out.println(category);
                 createCategory(category);
             }
             for(String category : otherCategories) {
                 categoryList.add(categoryDao.findByName(category));
             }
         }
-
 
         String[] catList = categories.split(",");
 
@@ -91,15 +101,49 @@ public class PostController {
 
 
     @PostMapping("/like/{id}")
-    public String likePost(@PathVariable(name = "id") long id, HttpSession session) {
+    public String likePost(@PathVariable(name = "id") long id) {
         User user = userService.getLoggedInUser();
+
+        Post currPost = postDao.getOne(id);
+        int likeCount = currPost.getLikeCount();
+        likeCount++;
+        currPost.setLikeCount(likeCount);
+        postDao.save(currPost);
+
         String currList = user.getFavoriteList();
         if(currList == null) currList = "";
-        currList+=String.valueOf(id);
+        currList+=id+"%";
         user.setFavoriteList(currList);
         userDao.save(user);
         return "redirect:/profile"; //will be curr url later
     }
+
+    @PostMapping("/dislike/{id}")
+    public String dislikePost(@PathVariable(name = "id") long id) {
+        User user = userService.getLoggedInUser();
+        String likeString = user.getFavoriteList();
+        StringBuilder newLikes = new StringBuilder();
+        if(likeString.length() > 0) {
+            String[] likes = likeString.split("%");
+            for (String l : likes) {
+                long iD = Long.parseLong(l);
+                if (iD != id) {
+                    newLikes.append(iD);
+                    newLikes.append("%");
+                }
+            }
+        }
+        user.setFavoriteList(newLikes.toString());
+        userDao.save(user);
+        return "redirect:/profile";
+    }
+
+
+
+
+
+
+
 
 
     private void createCategory(String categoryName) {

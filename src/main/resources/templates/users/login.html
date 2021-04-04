@@ -24,25 +24,23 @@
         </div>
     </div>
 
-    <div class="row">
-        <form class="col s12" th:action="@{/login}" th:method="POST">
-            <div class="row">
-                <div class="input-field col s6">
-                    <input id="first_name" name="username" type="text" class="validate">
-                    <label for="first_name">Username</label>
-                </div>
+    <form class="formContainer" th:action="@{/login}" th:method="POST">
+        <div class="row flexSet">
+            <div class="input-field col s10 m8 mAuto">
+                <input id="first_name" name="username" type="text" class="validate">
+                <label for="first_name">Username</label>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="password" type="password" name="password" class="validate">
-                    <label for="password">Password</label>
-                </div>
+        </div>
+        <div class="row flexSet">
+            <div class="input-field col s10 m8 mAuto">
+                <input id="password" type="password" name="password" class="validate">
+                <label for="password">Password</label>
             </div>
-            <button class="btn wave-effect waves-light">Submit</button>
-        </form>
-    </div>
+        </div>
+        <button class="btn wave-effect waves-light">Login</button>
+    </form>
 
-    <button><a href="/register">Register</a></button>
+    <button class="btn wave-effect waves-light"><a href="/register">Register</a></button>
 
 
     <div th:replace="partials/materializeScripts :: scripts"></div>

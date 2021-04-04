@@ -55,10 +55,10 @@ use wBlog;
 #     foreign key (category_id) references categories(id)
 # );
 
-insert into users(id, username, password, email, is_admin, profile_image, is_authenticated) values (1, 'mandy', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 1, 'image', 1);
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (1, 'mandy', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 1, 'image', 1, '3%1%2%');
 
-insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (2, 'user', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '31');
-insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (3, 'other', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '12');
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (2, 'user', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '3%1%');
+insert into users(id, username, password, email, is_admin, profile_image, is_authenticated, favorite_list) values (3, 'other', '$2a$10$wygL0OSDnArYf9YRA3UWZ.9JLAij1DK1aJDaFMk9S7gemTbwh5BIC', 'email@email.com', 0, 'image', 1, '1%2%');
 
 insert into category(id, name) VALUES (1, 'cooking');
 insert into category(id, name) VALUES (2, 'animals');
@@ -70,9 +70,9 @@ insert into questions(id, created_at, title) VALUES (3, '2020-01-02', 'do you li
 insert into questions(id, created_at, title) VALUES (4, '2020-01-02', 'can you drive stick');
 insert into questions(id, created_at, title) VALUES (5, '2020-01-02', 'what is you favorite color');
 
-insert into posts(id, title, content, created_at, like_count) VALUES (1, 'first post', 'about life and animals', '2021-01-02', 5);
-insert into posts(id, title, content, created_at, like_count) VALUES (2, 'second post', 'about water and food', '2020-03-02', 1);
-insert into posts(id, title, content, created_at, like_count) VALUES (3, 'third post', 'about items and possessions', '2021-11-21', 15);
+insert into posts(id, title, content, created_at, like_count) VALUES (1, 'first post', 'about life and animals, about life and animals, about life and animals, about life and animals, about life and animals, about life and animals, about life and animals, about life and animals', '2021-01-02', 5);
+insert into posts(id, title, content, created_at, like_count) VALUES (2, 'second post', 'about water and food, about water and food, about water and food, about water and food, about water and food, about water and food, about water and food, about water and food, about water and food', '2020-03-02', 1);
+insert into posts(id, title, content, created_at, like_count) VALUES (3, 'third post', 'about items and possessions, about items and possessions, about items and possessions, about items and possessions, about items and possessions, about items and possessions, about items and possessions, about items and possessions, about items and possessions', '2021-11-21', 15);
 
 
 
@@ -109,4 +109,3 @@ select * from comments;
 select * from comments where is_approved = 1;
 select * from category;
 select * from post_categories;
-
