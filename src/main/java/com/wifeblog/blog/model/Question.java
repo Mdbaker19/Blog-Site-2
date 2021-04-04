@@ -22,19 +22,11 @@ public class Question {
     @Column(nullable = false)
     private Timestamp createdAt;
 
-    @ManyToMany()
-    @JoinTable(
-            name = "question_answers",
-            joinColumns = {@JoinColumn(name = "question_id")},
-            inverseJoinColumns = {@JoinColumn(name = "answer_id")})
-    private List<Answer> answerList = new ArrayList<>();
-
     public Question(){}
 
-    public Question(long id, String title, Timestamp createdAt, List<Post> postList, List<Answer> answerList) {
+    public Question(long id, String title, Timestamp createdAt, List<Post> postList) {
         this.id = id;
         this.createdAt = createdAt;
-        this.answerList = answerList;
         this.title = title;
         this.postList = postList;
     }
@@ -61,14 +53,6 @@ public class Question {
 
     public void setPostList(List<Post> postList) {
         this.postList = postList;
-    }
-
-    public List<Answer> getAnswer() {
-        return answerList;
-    }
-
-    public void setAnswer(List<Answer> answerList) {
-        this.answerList = answerList;
     }
 
     public Timestamp getCreatedAt() {

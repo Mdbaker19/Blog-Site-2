@@ -11,7 +11,7 @@
             <h1 th:text="${post.title}"></h1>
             <h5 th:text="${session.timeFormat.timeFormat(post.createdAt)}"></h5>
             <p th:text="${post.content}"></p>
-            <form th:if="${session.user.isAdmin &lt; 1}" class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
+            <form class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
                 <input placeholder="need current url"/>
                 <button th:if="${!likedAlready}" class="logoutFormButton btn wave-effect">Like Post</button>
             </form>
