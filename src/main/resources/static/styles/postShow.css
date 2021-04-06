@@ -3,8 +3,19 @@
 
 }
 
+.postContentContainer{
+    width: 80vw;
+}
+
 .approveAndDeleteContainer{
     display: flex;
+}
+
+.postPartialContent{
+    max-height: 18vh;
+    overflow: hidden;
+    width: 80vw;
+    font-size: 1.3rem;
 }
 
 /*Comments*/
@@ -15,4 +26,31 @@
 .commentForm{
     background: #FEFED3;
     border-radius: 5px;
+    width: 80vw;
+    margin: auto;
+}
+
+
+@media screen and (min-width: 425px){
+    .postPartialContent{
+        max-height: 16vh;
+    }
+}
+
+@media screen and (min-width: 600px){
+    .postPartialContent{
+        max-height: 13vh;
+    }
+}
+
+@media screen and (min-width: 800px){
+    .postPartialContent{
+        max-height: 10vh;
+    }
+}
+
+@media screen and (min-width: 1000px){
+    .postPartialContent{
+        max-height: 8vh;
+    }
 }

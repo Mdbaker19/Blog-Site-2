@@ -11,15 +11,13 @@ import javax.servlet.http.HttpSession;
 public class MainController {
 
     private final PostRepository postDao;
-    private final Methods methods = new Methods();
 
     public MainController(PostRepository postDao){
         this.postDao = postDao;
     }
 
     @GetMapping("/")
-    public String homePage(HttpSession session){
-        session.setAttribute("timeFormat", methods);
+    public String homePage(){
         return "home";
     }
 
