@@ -41,9 +41,7 @@ public class PostController {
     }
 
     @GetMapping("/finish/{id}")
-    public String finishPost(@PathVariable(name = "id") long id, Model model){
-        // set the post id to then be view after login ( use spring security for this ? )
-        // login then send them back to finish the post
+    public String finishPost(@PathVariable(name = "id") long id){
         return "redirect:/posts/" + id;
     }
 

@@ -4,11 +4,12 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>Profile page</h1>
+    <h3>Profile page</h3>
     <h2 th:text="${session.user.username}"></h2>
     <p th:text="${session.user.email}"></p>
+    <button class="btn wave-effect"><a href="/settings">Settings</a></button>
 
-    <h1>Posts you like are below</h1>
+    <h3>Posts you like are below</h3>
     <div class="postLikes" th:if="${session.userLikes.size() > 0}" th:each="post : ${session.userLikes}">
         <h2 th:text="${post.title}"></h2>
         <p th:text="${post.content.substring(0, 75)}"></p>

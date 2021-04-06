@@ -9,6 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -33,7 +34,7 @@ public class UserController {
         User user = userService.getLoggedInUser();
         session.setAttribute("user", user);
         List<Post> likedList = new ArrayList<>();
-        if(user.getFavoriteList().length() > 0) {
+        if(user.getFavoriteList() != null && user.getFavoriteList().length() > 0) {
             String[] likes = user.getFavoriteList().split("%");
             for (String l : likes) {
                 likedList.add(postDao.getOne(Long.parseLong(l)));
@@ -46,6 +47,19 @@ public class UserController {
     @GetMapping("/login")
     public String loginPage(){
         return "users/login";
+    }
+
+    @GetMapping("/auth/{id}")
+    public String authActivateForNow(@PathVariable(name = "id") long id){
+        User user = userDao.findById(id).get();
+        user.setIsAuthenticated(1);
+        userDao.save(user);
+        return "redirect:/login?activated";
+    }
+
+    @GetMapping("/settings")
+    public String settingsPage(){
+        return "users/settings";
     }
 
 
