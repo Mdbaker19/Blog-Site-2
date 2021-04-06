@@ -7,13 +7,15 @@
     <h1>Register Page</h1>
 
     <main>
-        <div th:if="${!param.isEmpty()}">
-            <div>
-                <div class="errorMsg" th:if="${param.username}">
-                    <i class="material-icons">error</i>Username already exists
-                </div>
+
+        <div id="errorMsgBox">
+            <div class="errorMsg" th:if="${errorList.size() &gt; 0}" th:each="error : ${errorList}">
+                <small th:text="${error}"></small><br>
             </div>
         </div>
+
+        <p id="passErrorCustom">Passwords do not match</p>
+        <p id="passErrorCustom2">Password must contain 1 uppercase character, 1 number and be 8 - 20 characters in length</p>
 
 
         <form class="formContainer" th:action="@{/register}" th:method="POST" th:object="${user}">
@@ -31,8 +33,8 @@
             </div>
             <div class="row">
                 <div class="input-field col s10">
-                    <input id="cpass" type="password" name="cpass" class="validate">
-                    <label for="cpass">Confirm Password</label>
+                    <input id="confirmPass" type="password" name="confirmPass" class="validate">
+                    <label for="confirmPass">Confirm Password</label>
                 </div>
             </div>
             <div class="row">
@@ -41,11 +43,95 @@
                     <label for="email">Email</label>
                 </div>
             </div>
-            <button class="btn wave-effect waves-light">Submit</button>
+            <button class="btn wave-effect waves-light" id="registerBtn">Submit</button>
         </form>
     </main>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
 
+
+    <script>
+
+
+        // $("#robot").hide();
+        $("#passErrorCustom").hide();
+        $("#passErrorCustom2").hide();
+
+        // function captcha() {
+        //     if (grecaptcha.getResponse()) {
+        //         $("#robot").hide();
+        //         return true;
+        //     }
+        //     $("#robot").show(100);
+        //     return false;
+        // }
+
+        $(document).ready(function (){
+
+            const passInput = document.getElementById("password");
+            const passConfirm = document.getElementById("confirmPass");
+            const register = document.getElementById("registerBtn");
+
+
+            $("#confirmPass").on("input", function () {
+                if($(this).val() !== passInput.value){
+                    $(this).attr("style", "color: #f8ead4 !important");
+                    $("#password").attr("style", "color: #f8ead4 !important");
+                    $("#passErrorCustom").show(300);
+                    $("#passErrorCustom2").hide();
+                    // $("#regContainer").removeClass("topMove");
+                    register.disabled = true;
+                } else if (!goodPassword($(this).val())) {
+                    $(this).attr("style", "color: #f8ead4 !important");
+                    $("#password").attr("style", "color: #f8ead4 !important");
+                    $("#passErrorCustom2").show(300);
+                    $("#passErrorCustom").hide();
+                    // $("#regContainer").removeClass("topMove");
+                    register.disabled = true;
+                } else {
+                    $(this).removeAttr("style");
+                    $("#password").removeAttr("style");
+                    $("#passErrorCustom").hide(300);
+                    $("#passErrorCustom2").hide(300);
+                    // $("#regContainer").addClass("topMove");
+                    register.disabled = false;
+                }
+            });
+
+            $("#password").on("input", function () {
+                if($(this).val() !== passConfirm.value){
+                    $(this).attr("style", "color: #f8ead4 !important");
+                    $("#confirmPass").attr("style", "color: #f8ead4 !important");
+                    $("#passErrorCustom").show(300);
+                    $("#passErrorCustom2").hide();
+                    // $("#regContainer").removeClass("topMove");
+                    register.disabled = true;
+                } else if (!goodPassword($(this).val())) {
+                    $(this).attr("style", "color: #f8ead4 !important");
+                    $("#confirmPass").attr("style", "color: #f8ead4 !important");
+                    $("#passErrorCustom2").show(300);
+                    $("#passErrorCustom").hide();
+                    // $("#regContainer").removeClass("topMove");
+                    register.disabled = true;
+                } else {
+                    $(this).removeAttr("style");
+                    $("#confirmPass").removeAttr("style");
+                    $("#passErrorCustom").hide(300);
+                    $("#passErrorCustom2").hide(300);
+                    // $("#regContainer").addClass("topMove");
+                    register.disabled = false;
+                }
+            });
+
+            function goodPassword(s1){
+                if(s1.length > 21 || s1.length < 8) return false;
+                if(s1.toLowerCase() === s1) return false;
+                return /\d/.test(s1);
+            }
+
+        });
+
+
+    </script>
 </body>
 </html>
