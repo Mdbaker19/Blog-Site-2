@@ -13,9 +13,14 @@ a{
     color: #FDFFFC !important;
     font-size: 1.35rem !important;
 }
+.navbarA{
+    padding: 0 10px !important;
+}
 .btn{
     font-size: 1.35rem !important;
     background-color: #37782C !important;
+    height: 3rem;
+    line-height: 3rem;
 }
 .dropdown-content{
     background-color: #37782C !important;

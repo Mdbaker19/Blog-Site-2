@@ -11,11 +11,11 @@
     <h1>Posts you like are below</h1>
     <div class="postLikes" th:if="${session.userLikes.size() > 0}" th:each="post : ${session.userLikes}">
         <h2 th:text="${post.title}"></h2>
-        <p th:text="${post.content}"></p>
+        <p th:text="${post.content.substring(0, 75)}"></p>
+        <button class="btn wave-effect"><a th:href="@{/posts/{id}(id=${post.id})}">View More</a></button>
         <form th:method="POST" th:action="@{/dislike/{id}(id=${post.id})}">
             <button class="btn wave-effect">Dislike</button>
         </form>
-        <a th:href="@{/posts/{id}(id=${post.id})}">View More</a>
     </div>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>

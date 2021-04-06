@@ -3,6 +3,7 @@ package com.wifeblog.blog.controllers;
 import com.wifeblog.blog.model.*;
 import com.wifeblog.blog.repository.*;
 import com.wifeblog.blog.service.UserService;
+import com.wifeblog.blog.util.Methods;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,10 @@ public class PostController {
     private final UserRepository userDao;
     private final CategoryRepository categoryDao;
     private final PostRepository postDao;
-    private final UserService userService;
     private final QuestionRepository questionDao;
+    private final UserService userService;
+    private final Methods methods = new Methods();
+
 
     public PostController(CommentRepository commentDao, CategoryRepository categoryDao, UserService userService, QuestionRepository questionDao, UserRepository userDao, PostRepository postDao){
         this.commentDao = commentDao;
@@ -41,7 +44,7 @@ public class PostController {
     public String finishPost(@PathVariable(name = "id") long id, Model model){
         // set the post id to then be view after login ( use spring security for this ? )
         // login then send them back to finish the post
-        return "redirect:/login";
+        return "redirect:/posts/" + id;
     }
 
 
@@ -53,9 +56,11 @@ public class PostController {
             user = userService.getLoggedInUser();
         } catch (Exception ignored){}
         if(user == null) {
+            model.addAttribute("timeFormat", methods);
             return "posts/postPartial";
         }
         session.setAttribute("user", user);
+        session.setAttribute("timeFormat", methods);
 
         String answers = user.getAnsweredList();
         boolean canView = alreadySeenQuestion(user, id);
