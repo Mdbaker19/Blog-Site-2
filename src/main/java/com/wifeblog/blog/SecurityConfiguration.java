@@ -55,7 +55,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .and() // pages need to be logged in to visit below
                 .authorizeRequests()
-                .antMatchers ("/profile", "/create")//anything with post / something.. you need to be logged in to visit
+                .antMatchers ("/profile", "/create", "/finish/*")//anything with post / something.. you need to be logged in to visit
                 .authenticated();
     }
 }

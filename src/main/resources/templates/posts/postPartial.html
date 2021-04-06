@@ -10,7 +10,7 @@
 
     <div class="flexSet">
         <h1 th:text="${post.title}"></h1>
-        <h5 th:text="${session.timeFormat.timeFormat(post.createdAt)}"></h5>
+        <h5 th:text="${timeFormat.timeFormat(post.createdAt)}"></h5>
         <div class="categories">
             <div th:each="category : ${post.categories}">
                 <p th:text="${category.name}"></p>
