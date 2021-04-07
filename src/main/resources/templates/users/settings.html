@@ -3,7 +3,41 @@
 <head th:replace="partials/styleHead :: styleHead('Your Profile')"></head>
 <body>
 
-<h1>Your settings</h1>
+<h1>Edit your settings</h1>
+
+<form class="formContainer" th:action="@{/settings}" th:method="POST" th:object="${user}">
+    <div class="row flexSet">
+        <div class="input-field col s10 m8 mAuto">
+            <input id="username" name="username" type="text" class="validate" th:field="*{username}">
+            <label for="username">Username</label>
+        </div>
+    </div>
+    <div class="row flexSet">
+        <div class="input-field col s10 m8 mAuto">
+            <input id="password" type="password" name="password" class="validate" th:field="*{password}">
+            <label for="password">Password</label>
+        </div>
+    </div>
+    <div class="row flexSet">
+        <div class="input-field col s10 m8 mAuto">
+            <input id="email" type="email" name="email" class="validate" th:field="*{email}">
+            <label for="email">Email</label>
+        </div>
+    </div>
+    <div class="row flexSet">
+        <div class="input-field col s10 m8 mAuto">
+            <input id="profileImg" type="text" name="profileImg" class="validate">
+            <label for="profileImg">Profile image</label>
+        </div>
+    </div>
+    <p>
+        <label>
+            <input type="checkbox" name="notify" checked="checked" />
+            <span>Notifications</span>
+        </label>
+    </p>
+    <button class="btn wave-effect waves-light">Login</button>
+</form>
 
 <div th:replace="partials/materializeScripts :: scripts"></div>
 

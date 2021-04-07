@@ -50,11 +50,18 @@ public class AuthenticController {
             validation.rejectValue("confirm", "Passwords don not match");
             errorList.add("Passwords don not match");
         }
+        if(user.getUsername().isEmpty()) {
+            validation.rejectValue("username", "Username can not be empty");
+            errorList.add("Username can not be empty");
+        }
         if(validation.hasErrors()) {
             model.addAttribute("errorList", errorList);
             return "auth/register";
         }
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setAnsweredList("");
+        user.setFavoriteList("");;
+        user.setProfileImage(""); // will be some default decided later
         userDao.save(user);
         return "redirect:/profile";
     }
