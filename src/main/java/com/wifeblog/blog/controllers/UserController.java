@@ -9,7 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 import java.util.*;
@@ -58,8 +60,15 @@ public class UserController {
     }
 
     @GetMapping("/settings")
-    public String settingsPage(){
+    public String settingsPage(Model model){
+        model.addAttribute("user", userService.getLoggedInUser());
         return "users/settings";
+    }
+
+    @PostMapping("/settings")
+    public String updateSettings(@ModelAttribute User user){
+
+        return "redirect:/profile";
     }
 
 
