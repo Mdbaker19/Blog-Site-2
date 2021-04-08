@@ -36,7 +36,7 @@ public class Password {
     public static boolean goodQualityPassword(String passwordAttempt){
         int len = passwordAttempt.length();
 
-        if(len < 8 || len > 20) return false;
+        if(len < 8) return false;
 
         Pattern upper = Pattern.compile("\\p{Upper}");
         Pattern lower = Pattern.compile("\\p{Lower}");

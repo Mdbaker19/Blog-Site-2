@@ -67,6 +67,7 @@ public class UserController {
 
     @PostMapping("/settings")
     public String updateSettings(@ModelAttribute User user){
+        User currUser = userService.getLoggedInUser();
 
         return "redirect:/profile";
     }
