@@ -15,7 +15,7 @@
         </div>
 
         <p id="passErrorCustom">Passwords do not match</p>
-        <p id="passErrorCustom2">Password must contain 1 uppercase character, 1 number and be 8 - 20 characters in length</p>
+        <p id="passErrorCustom2">Password must contain 1 uppercase character, 1 number and be 8+ characters in length</p>
 
 
         <form class="formContainer" th:action="@{/register}" th:method="POST" th:object="${user}">
