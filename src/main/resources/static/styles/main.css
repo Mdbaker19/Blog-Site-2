@@ -31,9 +31,36 @@ button:hover{
     font-size: 1.3rem;
 }
 
+
+/*NAV BAR*/
+#nav-main-top {
+    height: 1%;
+    width: 100%;
+    display: flex;
+}
+#nav-main-logo {
+    width: 58%;
+    height: 100%;
+    text-align: center;
+}
+#social-links {
+    width: 20%;
+    display: flex;
+    justify-content: space-evenly;
+}
+#nav-mobile {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
 @media screen and (min-width: 600px){
     .logoutFormButton{
         margin-left: 0;
+    }
+    #nav-main-top {
+        height: 53%;
     }
 }
 

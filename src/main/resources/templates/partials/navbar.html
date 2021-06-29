@@ -21,8 +21,17 @@
     <nav>
 
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo">Home</a>
-            <a class='dropdown-trigger hide-on-med-and-up right' href='#' data-target='dropdown1'>Drop Down</a>
+            <div id="nav-main-top">
+                <div id="social-links" class="left">
+                    <i class="fab fa-facebook"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram-square"></i>
+                </div>
+                <div id="nav-main-logo">
+                    <a href="/" class="brand-logo">Home</a>
+                </div>
+            </div>
+            <a class='dropdown-trigger hide-on-med-and-up right' href='#' data-target='dropdown1'><i class="material-icons">format_align_justify</i> </a>
             <ul id="nav-mobile" class="right hide-on-small-only">
                 <li sec:authorize="isAuthenticated()"><a class="navbarA" href="/profile">Profile</a></li>
                 <li sec:authorize="isAnonymous()">
