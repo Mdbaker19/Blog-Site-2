@@ -61,6 +61,13 @@ public class UserController {
 
     @GetMapping("/settings")
     public String settingsPage(Model model){
+        User user = null;
+        try {
+            user = userService.getLoggedInUser();
+        } catch (Exception ignored) { }
+        if(user == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("user", userService.getLoggedInUser());
         return "users/settings";
     }
@@ -68,7 +75,30 @@ public class UserController {
     @PostMapping("/settings")
     public String updateSettings(@ModelAttribute User user){
         User currUser = userService.getLoggedInUser();
-
+        System.out.println("currUser.getUsername() = " + currUser.getUsername());
+        System.out.println("currUser.getEmail() = " + currUser.getEmail());
+        System.out.println("currUser.getProfileImage() = " + currUser.getProfileImage());
+        System.out.println("-======================-");
+        System.out.println("user.getUsername() = " + user.getUsername());
+        System.out.println("user.getEmail() = " + user.getEmail());
+        System.out.println("user.getProfileImage() = " + user.getProfileImage());
+        System.out.println("--------------------------------");
+        if (!user.getPassword().isEmpty()) {
+            currUser.setPassword(encoder.encode(user.getPassword()));
+        }
+        if (!user.getProfileImage().isEmpty()) {
+            currUser.setProfileImage(user.getProfileImage());
+        }
+        if (!user.getUsername().equals(currUser.getUsername()) && !user.getUsername().isEmpty()) {
+            currUser.setUsername(user.getUsername());
+        }
+        if (!user.getEmail().equals(currUser.getEmail()) && !user.getEmail().isEmpty()) {
+            currUser.setEmail(user.getEmail());
+        }
+        System.out.println("currUser.getUsername() = " + currUser.getUsername());
+        System.out.println("currUser.getEmail() = " + currUser.getEmail());
+        System.out.println("currUser.getProfileImage() = " + currUser.getProfileImage());
+        userDao.save(currUser);
         return "redirect:/profile";
     }
 

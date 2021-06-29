@@ -4,9 +4,8 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>Log in page</h1>
 
-
+<main id="login-page-body">
     <div th:if="${!param.isEmpty()}">
         <div>
             <div class="errorMsg" th:if="${param.logout}">
@@ -24,23 +23,36 @@
         </div>
     </div>
 
-    <form class="formContainer" th:action="@{/login}" th:method="POST">
-        <div class="row flexSet">
-            <div class="input-field col s10 m8 mAuto">
-                <input id="username" name="username" type="text" class="validate">
-                <label for="username">Username</label>
-            </div>
+    <section id="formArea">
+        <div id="login-in-side">
+            <form class="formContainer" id="login-in-form" th:action="@{/login}" th:method="POST">
+                <div class="row flexSet login-div">
+                    <div class="input-field col s10 m8 mAuto">
+                        <input id="username" name="username" type="text" class="validate login-input">
+                        <label class="login-label" for="username">Username</label>
+                    </div>
+                </div>
+                <div class="row flexSet login-div">
+                    <div class="input-field col s10 m8 mAuto">
+                        <input id="password" type="password" name="password" class="validate login-input">
+                        <label class="login-label" for="password">Password</label>
+                    </div>
+                </div>
+                <button class="btn wave-effect waves-light">Login</button>
+            </form>
         </div>
-        <div class="row flexSet">
-            <div class="input-field col s10 m8 mAuto">
-                <input id="password" type="password" name="password" class="validate">
-                <label for="password">Password</label>
-            </div>
+        <div id="register-side">
+            <h2>Not a Member?</h2>
+            <p>Create an account to like and follow posts, get updates on new posts</p>
+            <button class="btn wave-effect waves-light"><a href="/register">Register</a></button>
         </div>
-        <button class="btn wave-effect waves-light">Login</button>
-    </form>
+    </section>
+</main>
 
-    <button class="btn wave-effect waves-light"><a href="/register">Register</a></button>
+
+    <div class="footer-basic">
+        <footer th:replace="partials/footer :: footer"></footer>
+    </div>
 
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
