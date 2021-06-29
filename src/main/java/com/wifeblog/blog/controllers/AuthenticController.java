@@ -61,7 +61,7 @@ public class AuthenticController {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setAnsweredList("");
         user.setFavoriteList("");;
-        user.setProfileImage(""); // will be some default decided later
+        user.setProfileImage("https://i.pinimg.com/236x/8c/70/8b/8c708b478e0e71f7599b75b9cc108ddf.jpg"); // will be some default decided later
         userDao.save(user);
         return "redirect:/profile";
     }

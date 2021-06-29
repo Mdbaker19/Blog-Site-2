@@ -6,11 +6,11 @@ nav{
     height: 110px !important;
 }
 input{
-    color: #024064 !important;
-    border-bottom: 1px solid #024064 !important;
+    color: #e7e8cf !important;
+    border-bottom: 1px solid #e7e8cf !important;
 }
 label{
-    color: #024064 !important;
+    color: #e7e8cf !important;
 }
 a{
     /*color: #FDFFFC !important;*/
@@ -36,4 +36,10 @@ a{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+/*Profile page*/
+#profile-main{
+    flex-direction: row !important;
+    margin: 6rem !important;
 }

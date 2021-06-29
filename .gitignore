@@ -6,6 +6,7 @@ target/
 src/main/resources/application.properties
 src/main/resources/todo.txt
 node_modules/
+src/main/resources/static/js/keys.js
 ### STS ###
 .apt_generated
 .classpath

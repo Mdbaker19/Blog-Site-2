@@ -4,7 +4,7 @@
 
 <body>
 
-    <h1>You need to see this for 10 seconds</h1>
+    <h1>You need to see this for <span id="timer"></span> seconds</h1>
     <h2 th:text="${question.title}"></h2>
     <input type="hidden" th:value="${postId}" id="postID">
 
@@ -14,8 +14,17 @@
     $(document).ready(function() {
 
         const thisPostId = document.getElementById("postID");
+        const timer = document.getElementById("timer");
+        let time = 10;
+        timer.innerText = time.toString();
         let idValue = thisPostId.value;
         setTimeout(changeWindow, 10000);
+        setInterval(updateText, 1000);
+
+        function updateText(){
+            time -= 1;
+            timer.innerText = time.toString();
+        }
 
         function changeWindow(){
             window.location = `http://localhost:8080/posts/${idValue}`;
