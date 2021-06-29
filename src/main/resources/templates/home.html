@@ -4,16 +4,23 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>Welcome to the Blog</h1>
+
+
+    <main>
+        <h1>Border Blog Title</h1>
+        <h6>Quick Little Sub title</h6>
+    </main>
+
+    <div class="footer-basic">
+        <footer th:replace="partials/footer :: footer"></footer>
+    </div>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
 
 <script>
-    $(document).ready(() => {
-
-
-
-    })();
+    window.onload = () => {
+        console.log("loaded");
+    }
 </script>
 
 </body>

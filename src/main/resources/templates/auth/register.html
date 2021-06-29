@@ -4,9 +4,8 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>Register Page</h1>
 
-    <main>
+    <main id="register-page-body">
 
         <div id="errorMsgBox">
             <div class="errorMsg" th:if="${errorList.size() &gt; 0}" th:each="error : ${errorList}">
@@ -18,33 +17,35 @@
         <p id="passErrorCustom2">Password must contain 1 uppercase character, 1 number and be 8+ characters in length</p>
 
 
-        <form class="formContainer" th:action="@{/register}" th:method="POST" th:object="${user}">
-            <div class="row">
-                <div class="input-field col s10">
-                    <input id="first_name" name="username" type="text" class="validate" th:field="*{username}">
-                    <label for="first_name">Username</label>
+        <section id="formArea">
+            <form class="formContainer" th:action="@{/register}" th:method="POST" th:object="${user}">
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="first_name" name="username" type="text" class="validate" th:field="*{username}">
+                        <label for="first_name">Username</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s10">
-                    <input id="password" type="password" name="password" class="validate" th:field="*{password}">
-                    <label for="password">Password</label>
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="password" type="password" name="password" class="validate" th:field="*{password}">
+                        <label for="password">Password</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s10">
-                    <input id="confirmPass" type="password" name="confirmPass" class="validate">
-                    <label for="confirmPass">Confirm Password</label>
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="confirmPass" type="password" name="confirmPass" class="validate">
+                        <label for="confirmPass">Confirm Password</label>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s10">
-                    <input id="email" type="email" name="email" class="validate" th:field="*{email}">
-                    <label for="email">Email</label>
+                <div class="row">
+                    <div class="input-field col s10">
+                        <input id="email" type="email" name="email" class="validate" th:field="*{email}">
+                        <label for="email">Email</label>
+                    </div>
                 </div>
-            </div>
-            <button class="btn wave-effect waves-light" id="registerBtn">Submit</button>
-        </form>
+                <button class="btn wave-effect waves-light" id="registerBtn">Submit</button>
+            </form>
+        </section>
     </main>
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
