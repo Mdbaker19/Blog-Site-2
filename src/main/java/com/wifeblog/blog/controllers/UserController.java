@@ -75,14 +75,6 @@ public class UserController {
     @PostMapping("/settings")
     public String updateSettings(@ModelAttribute User user){
         User currUser = userService.getLoggedInUser();
-        System.out.println("currUser.getUsername() = " + currUser.getUsername());
-        System.out.println("currUser.getEmail() = " + currUser.getEmail());
-        System.out.println("currUser.getProfileImage() = " + currUser.getProfileImage());
-        System.out.println("-======================-");
-        System.out.println("user.getUsername() = " + user.getUsername());
-        System.out.println("user.getEmail() = " + user.getEmail());
-        System.out.println("user.getProfileImage() = " + user.getProfileImage());
-        System.out.println("--------------------------------");
         if (!user.getPassword().isEmpty()) {
             currUser.setPassword(encoder.encode(user.getPassword()));
         }
@@ -95,9 +87,6 @@ public class UserController {
         if (!user.getEmail().equals(currUser.getEmail()) && !user.getEmail().isEmpty()) {
             currUser.setEmail(user.getEmail());
         }
-        System.out.println("currUser.getUsername() = " + currUser.getUsername());
-        System.out.println("currUser.getEmail() = " + currUser.getEmail());
-        System.out.println("currUser.getProfileImage() = " + currUser.getProfileImage());
         userDao.save(currUser);
         return "redirect:/profile";
     }
