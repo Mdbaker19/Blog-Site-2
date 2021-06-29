@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class AuthenticController {
 
@@ -31,11 +34,36 @@ public class AuthenticController {
 
 
     @PostMapping("/register")
-    public String postRegister(@ModelAttribute @Validated User user, Errors validation,
-                               @RequestParam(name = "cpass", required = false) String confirm){
+    public String postRegister(@ModelAttribute @Validated User user, Errors validation, Model model,
+                               @RequestParam(name = "confirmPass", required = false) String confirm){
 
-        return "redirect:/";
-//        return "redirect:/profile";
+        List<String> errorList = new ArrayList<>();
+        if(userDao.findByUsername(user.getUsername()) != null) {
+            validation.rejectValue("username", "username already in use");
+            errorList.add("username already in use");
+        }
+        if(userDao.findByEmail(user.getEmail()) != null) {
+            validation.rejectValue("email", "email already in use");
+            errorList.add("email already in use");
+        }
+        if(!user.getPassword().equals(confirm)) {
+            validation.rejectValue("confirm", "Passwords don not match");
+            errorList.add("Passwords don not match");
+        }
+        if(user.getUsername().isEmpty()) {
+            validation.rejectValue("username", "Username can not be empty");
+            errorList.add("Username can not be empty");
+        }
+        if(validation.hasErrors()) {
+            model.addAttribute("errorList", errorList);
+            return "auth/register";
+        }
+        user.setPassword(encoder.encode(user.getPassword()));
+        user.setAnsweredList("");
+        user.setFavoriteList("");;
+        user.setProfileImage("https://i.pinimg.com/236x/8c/70/8b/8c708b478e0e71f7599b75b9cc108ddf.jpg"); // will be some default decided later
+        userDao.save(user);
+        return "redirect:/profile";
     }
 
 }

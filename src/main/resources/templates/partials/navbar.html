@@ -3,7 +3,7 @@
 <div th:fragment="navbar" th:remove="tag">
 
     <ul id="dropdown1" class="dropdown-content">
-        <li><a href="/profile">Profile</a> </li>
+        <li sec:authorize="isAuthenticated()"><a href="/profile">Profile</a> </li>
         <li sec:authorize="isAnonymous()">
             <a href="/login">Login</a>
         </li>
@@ -21,10 +21,14 @@
     <nav>
 
         <div class="nav-wrapper">
-            <a href="/" class="brand-logo">Home</a>
-            <a class='dropdown-trigger hide-on-med-and-up right' href='#' data-target='dropdown1'>Drop Down</a>
+            <div id="nav-main-top">
+                <div id="nav-main-logo">
+                    <a href="/" class="brand-logo">Home</a>
+                </div>
+            </div>
+            <a class='dropdown-trigger hide-on-med-and-up right' href='#' data-target='dropdown1'><i class="material-icons">format_align_justify</i> </a>
             <ul id="nav-mobile" class="right hide-on-small-only">
-                <li><a class="navbarA" href="/profile">Profile</a></li>
+                <li sec:authorize="isAuthenticated()"><a class="navbarA" href="/profile">Profile</a></li>
                 <li sec:authorize="isAnonymous()">
                     <a class="navbarA" href="/login">Login</a>
                 </li>

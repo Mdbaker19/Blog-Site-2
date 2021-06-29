@@ -4,19 +4,36 @@
 <body>
 
     <nav th:replace="partials/navbar :: navbar"></nav>
-    <h1>Profile page</h1>
-    <h2 th:text="${session.user.username}"></h2>
-    <p th:text="${session.user.email}"></p>
 
-    <h1>Posts you like are below</h1>
-    <div class="postLikes" th:if="${session.userLikes.size() > 0}" th:each="post : ${session.userLikes}">
-        <h2 th:text="${post.title}"></h2>
-        <p th:text="${post.content.substring(0, 75)}"></p>
-        <button class="btn wave-effect"><a th:href="@{/posts/{id}(id=${post.id})}">View More</a></button>
-        <form th:method="POST" th:action="@{/dislike/{id}(id=${post.id})}">
-            <button class="btn wave-effect">Dislike</button>
-        </form>
+    <main class="row" id="profile-main">
+        <div class="col m3">
+            <div id="profile-image-container">
+                <img th:src="${session.user.profileImage}" alt="profileImage">
+            </div>
+            <h2 th:text="${session.user.username}"></h2>
+            <p th:text="${session.user.email}"></p>
+        </div>
+        <div class="col m6">
+            <h3>Your liked Posts</h3>
+            <div class="postLikes" th:if="${session.userLikes.size() > 0}" th:each="post : ${session.userLikes}">
+                <h2 th:text="${post.title}"></h2>
+                <p th:text="${post.content.substring(0, 75)}"></p>
+                <button class="btn wave-effect"><a th:href="@{/posts/{id}(id=${post.id})}">View More</a></button>
+                <form th:method="POST" th:action="@{/dislike/{id}(id=${post.id})}">
+                    <button class="btn wave-effect">Dislike</button>
+                </form>
+            </div>
+        </div>
+        <div class="col m3">
+            <button class="btn wave-effect"><a href="/settings">Settings</a></button>
+            <h3>Content over here</h3>
+        </div>
+    </main>
+
+    <div class="footer-basic">
+        <footer th:replace="partials/footer :: footer"></footer>
     </div>
+
 
     <div th:replace="partials/materializeScripts :: scripts"></div>
 

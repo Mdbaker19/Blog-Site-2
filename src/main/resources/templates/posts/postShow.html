@@ -15,7 +15,7 @@
             </div>
             <form class="logoutForm" th:action="@{/like/{id}(id=${post.id})}" method="POST">
                 <input placeholder="need current url"/>
-                <button th:if="${!likedAlready}" class="logoutFormButton btn wave-effect">Like Post</button>
+                <button th:if="${!likedAlready}" class="logoutFormButton btn wave-effect">Like Post<span th:text="${post.likeCount}"></span></button>
             </form>
             <div class="categories">
                 <div th:each="category : ${post.categories}">
@@ -64,6 +64,10 @@
 
     </main>
 
+
+    <div class="footer-basic">
+        <footer th:replace="partials/footer :: footer"></footer>
+    </div>
 
 
     <div th:replace="partials/materializeScripts :: scripts"></div>

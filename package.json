@@ -1,0 +1,22 @@
+{
+  "name": "wifeblog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mdbaker19/Blog-Site-2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mdbaker19/Blog-Site-2/issues"
+  },
+  "homepage": "https://github.com/Mdbaker19/Blog-Site-2#readme",
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.2"
+  }
+}
